@@ -1,7 +1,11 @@
 import Link from "next/link";
 import React from "react";
+import { useAnonAadhaar } from "@anon-aadhaar/react";
+import { LogInWithAnonAadhaar } from "@anon-aadhaar/react";
 
 function Navbar() {
+  const [anonAadhaarState] = useAnonAadhaar();
+
   return (
     <div className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -23,7 +27,16 @@ function Navbar() {
               Contact
             </Link>
           </ul>
-          <w3m-button />
+          <div className="flex items-center space-x-4">
+            {anonAadhaarState.status === "logged-in" ? (
+              <span className="text-white">
+                Logged in as {anonAadhaarState.anonAadhaarProof.identity}
+              </span>
+            ) : (
+              <LogInWithAnonAadhaar nullifierSeed={1234} />
+            )}
+            <w3m-button />
+          </div>
         </div>
       </div>
     </div>
