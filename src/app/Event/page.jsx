@@ -125,7 +125,7 @@ function Event() {
 
       <div className="py-12 bg-gray-100 min-h-screen">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">
+          <h2 className="text-3xl font-bold mb-6 text-black">
             {filters.status || "All"} Events
           </h2>
 
@@ -378,9 +378,11 @@ function Event() {
             {filteredEvents.length > 0 ? (
               filteredEvents.map((event) => (
                 <Link
-                  href={`/EventDetails/${event.id}`}
+                  href={{
+                    pathname: `/EventDetails/${event.id}`,
+                    query: { event: JSON.stringify(event) }, // Passing event as query parameter
+                  }}
                   key={event.id}
-                  state={{ event }}
                   className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition"
                 >
                   <h3 className="text-2xl font-bold mb-2">{event.name}</h3>

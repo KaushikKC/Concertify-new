@@ -1,15 +1,11 @@
 "use client";
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 function EventDetails() {
-  const router = useRouter();
-  const { event } = router.query;
+  const searchParams = useSearchParams();
 
-  useEffect(() => {
-    console.log("Router query:", router.query);
-    console.log("Event data:", event);
-  }, [router.query, event]);
+  const event = searchParams.get("event");
 
   if (!event) {
     return <p>No event data available.</p>;
@@ -21,7 +17,9 @@ function EventDetails() {
     <div className="py-12 bg-gray-100 min-h-screen">
       <div className="container mx-auto px-4">
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg mx-auto">
-          <h2 className="text-3xl font-bold mb-4">{parsedEvent.name}</h2>
+          <h2 className="text-3xl font-bold mb-4 text-black">
+            {parsedEvent.name}
+          </h2>
           <p className="text-gray-700 mb-4">{parsedEvent.description}</p>
           <p className="text-gray-600 mb-2">
             <strong>Date:</strong>{" "}
